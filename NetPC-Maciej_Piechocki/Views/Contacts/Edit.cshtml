@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ContactDto
+@{
+}
+@inject SignInManager<Contact> SignInManager
+@inject UserManager<Contact> UserManager
+
+
+<div class="row">
+	<div class="col-md-8 mx-auto rounded border p-3">
+		@if (SignInManager.IsSignedIn(User))
+		{
+			<h2 class="text-center mb-5">Edit Contact</h2>
+
+			<form method="post" enctype="multipart/form-data">
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">ID</label>
+					<div class="col-sm-8">
+						<input class="form-control-plaintext" value="@ViewData["ContactId"]" />
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">First Name</label>
+					<div class="col-sm-8">
+						<input class="form-control" asp-for="FirstName" />
+						<span asp-validation-for="FirstName" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Last Name</label>
+					<div class="col-sm-8">
+						<input class="form-control" asp-for="LastName" />
+						<span asp-validation-for="LastName" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Phone Number</label>
+					<div class="col-sm-8">
+						<input class="form-control" asp-for="PhoneNumber" />
+						<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Email</label>
+					<div class="col-sm-8">
+						<input class="form-control" asp-for="Email" />
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Birth Date</label>
+					<div class="col-sm-8">
+						<input type="date" class="form-control" asp-for="BirthDate" />
+						<span asp-validation-for="BirthDate" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Category</label>
+					<div class="col-sm-8">
+						<select class="form-select" asp-for="CategoryId">
+							<option></option>
+							<option value="1">służbowy</option>
+							<option value="2">prywatny</option>
+							<option value="3">inny</option>
+						</select>
+						<span asp-validation-for="CategoryId" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Sub Category</label>
+					<div class="col-sm-8">
+						<select class="form-select" asp-for="SubCategoryId">
+							<option></option>
+							<option value="1">szef</option>
+							<option value="2">klient</option>
+						</select>
+						<span asp-validation-for="SubCategoryId" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-sm-4 col-sm-4 d-grid">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					<div class="col-sm-4 d-grid">
+						<a class="btn btn-outline-primary" asp-controller="Contacts" asp-action="Index" role="button">Cancel</a>
+					</div>
+				</div>
+			</form>
+		} else
+		{
+			<h2 class="text-center mb-5">You don't have permission!</h2>
+		}
+
+	</div>
+</div>

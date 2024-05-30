@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Contact> SignInManager
+@inject UserManager<Contact> UserManager
+@model List<Contact>
+@{
+}
+
+<h2 class="text-center mb-5">List Of Contacts</h2>
+<div class="row mb-5">
+	<div class="col">
+		<a class="btn btn-primary" asp-controller="Contacts" asp-action="Create">New Contact</a>
+	</div>
+	<div class="col">
+
+	</div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var contact in Model)
+		{
+			<tr>
+				<td>@contact.FirstName</td>
+				<td>@contact.LastName</td>
+				<td>@contact.Email</td>
+				@if (SignInManager.IsSignedIn(User))
+				{
+					<td style="white-space:nowrap">
+						<a class="btn btn-primary btn-sm" asp-controller="Contacts" asp-action="Edit" asp-route-id="@contact.Id">Edit</a>
+						<a class="btn btn-danger btn-sm" asp-controller="Contacts" asp-action="Delete" asp-route-id="@contact.Id" onclick="return confirm('Are you sure?')">Delete</a>
+					</td>
+				}
+				else
+				{
+					<td style="white-space:nowrap">
+						<a class="btn btn-primary btn-sm" asp-area="Identity" asp-page="/Account/Login">Login To Edit</a>
+					</td>
+				}
+				
+			</tr>
+		}
+	</tbody>
+</table>
